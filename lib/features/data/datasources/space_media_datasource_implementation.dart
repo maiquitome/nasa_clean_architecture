@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:nasa_clean_architecture/core/http_client/http_client.dart';
 import 'package:nasa_clean_architecture/core/usecase/errors/exceptions.dart';
-import 'package:nasa_clean_architecture/core/utils/converters/date_to_string_converter.dart';
+import 'package:nasa_clean_architecture/core/utils/converters/date_input_converter.dart';
 import 'package:nasa_clean_architecture/core/utils/keys/nasa_api_keys.dart';
 import 'package:nasa_clean_architecture/features/data/datasources/endpoints/nasa_endpoints.dart';
 import 'package:nasa_clean_architecture/features/data/datasources/space_media_datasource.dart';
@@ -17,7 +17,7 @@ class NasaDatasourceImplementation implements ISpaceMediaDatasource {
   Future<SpaceMediaModel> getSpaceMediaFromDate(DateTime date) async {
     final response = await client.get(
       NasaEndpoints.apod(
-          NasaApiKeys.apiKey, DateToStringConverter.convert(date)),
+          NasaApiKeys.apiKey, DateInputConverter.format(date)),
     );
 
     if (response.statusCode == 200) {
